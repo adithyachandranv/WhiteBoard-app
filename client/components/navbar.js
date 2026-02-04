@@ -1,4 +1,4 @@
-function Navbar({activetool,setActiveTool}) {
+function Navbar({activetool,setActiveTool,}) {
     return (
         <nav
             className="

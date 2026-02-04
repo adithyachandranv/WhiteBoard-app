@@ -9,7 +9,7 @@ function Whiteboard() {
     return (
         <>
         <Navbar activeTool={tool} setActiveTool={setTool}/>
-        <Canvas tool={tool}/>
+        <Canvas tool={tool} style={{zIndex: 100}}/>
         </>
         
     );

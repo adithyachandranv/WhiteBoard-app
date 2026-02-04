@@ -38,6 +38,8 @@ function Canvas({tool}) {
       x: e.clientX - rect.left,
       y: e.clientY - rect.top
     };
+
+    if (tool === 'clear' || tool === 'text') return;
   };
 
   const stopDrawing = () => {
@@ -48,26 +50,36 @@ function Canvas({tool}) {
     ctx.globalCompositeOperation='source-over';
   };
 
+  const clearCanvas = () => {
+    const canvas = canvasRef.current;
+    const ctx = ctxRef.current;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  if(tool==='clear'){
+    clearCanvas();
+  }
+
   const draw = (e) => {
     if (!isDrawing.current) return;
 
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+    const ctx = ctxRef.current;
     const rect = canvas.getBoundingClientRect();
 
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
+
     if(tool==='eraser'){
       ctx.globalCompositeOperation='destination-out';
       ctx.lineWidth=20;
     }
-    else{
+    else if(tool==='pencil'){
       ctx.globalCompositeOperation='source-over';
       ctx.strokeStyle='#000';
       ctx.lineWidth=4;
     }
-
     ctx.beginPath();
     ctx.moveTo(lastPoint.current.x, lastPoint.current.y);
     ctx.lineTo(x, y);
@@ -79,15 +91,25 @@ function Canvas({tool}) {
   return (
     <>
       <canvas
-        ref={canvasRef}
-        width={width}
-        height={height}
-        style={{ border: "1px solid black" }}
-        onMouseDown={startDrawing}
-        onMouseMove={draw}
-        onMouseUp={stopDrawing}
-        onMouseLeave={stopDrawing}
-      />
+  ref={canvasRef}
+  width={width}
+  height={height}
+  className="
+    inset-0
+    w-full h-[100dvh]
+    max-w-full max-h-[100dvh]
+    overflow-hidden
+    touch-none
+    select-none
+    block
+  "
+  style={{ border: "1px solid black" }}
+  onMouseDown={startDrawing}
+  onMouseMove={draw}
+  onMouseUp={stopDrawing}
+  onMouseLeave={stopDrawing}
+/>
+
     </>
   );
 }
