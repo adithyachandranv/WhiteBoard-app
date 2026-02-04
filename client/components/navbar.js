@@ -1,4 +1,4 @@
-function Navbar() {
+function Navbar({activetool,setActiveTool}) {
     return (
         <nav
             className="
@@ -12,17 +12,17 @@ function Navbar() {
                 overflow-x-auto
             "
         >
-            <ToolbarButton label="✏️" text="Pencil" />
-            <ToolbarButton label="🧽" text="Eraser" />
-            <ToolbarButton label="🔤" text="Text" />
-            <ToolbarButton label="🗑️" text="Clear" danger />
+            <ToolbarButton onClick={()=>setActiveTool('pencil')} activetool={activetool==='pencil'}  label="✏️" text="Pencil" />
+            <ToolbarButton onClick={()=>setActiveTool('eraser')} activetool={activetool==='eraser'} label="🧽" text="Eraser" />
+            <ToolbarButton onClick={()=>setActiveTool('text')} activetool={activetool==='text'} label="🔤" text="Text" />
+            <ToolbarButton onClick={()=>setActiveTool('clear')} activetool={activetool==='clear'} label="🗑️" text="Clear" danger />
         </nav>
     );
 }
 
-function ToolbarButton({ label, text, danger }) {
+function ToolbarButton({ label, text, danger, onClick,activetool }) {
     return (
-        <button
+        <button onClick={onClick} activetool={'activetool'}
             className={`
                 flex items-center gap-2
                 px-4 py-2
