@@ -1,18 +1,17 @@
-'use client';
+"use client";
 import Canvas from "./whiteboard/canvas";
 import Navbar from "./navbar";
 import { useState } from "react";
 
 function Whiteboard() {
-    const[tool,setTool]=useState('pencil')
+  const [tool, setTool] = useState("pencil");
 
-    return (
-        <>
-        <Navbar activeTool={tool} setActiveTool={setTool}/>
-        <Canvas tool={tool} style={{zIndex: 100}}/>
-        </>
-        
-    );
+  return (
+    <>
+      <Navbar activeTool={tool} setActiveTool={setTool} />
+      <Canvas tool={tool} style={{ zIndex: 100 }} />
+    </>
+  );
 }
 
 export default Whiteboard;
